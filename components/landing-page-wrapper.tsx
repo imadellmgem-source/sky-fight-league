@@ -8,7 +8,7 @@ import { FightCard } from "./site/fight-card";
 import { Hero } from "./site/hero";
 import { NewsletterCta } from "./site/newsletter-cta";
 import { SectionBreakBanner } from "./site/section-break-banner";
-import { SimonMarcus } from "./site/simon-marcus";
+
 import { SiteFooter } from "./site/site-footer";
 import { SiteHeader } from "./site/site-header";
 import { Opportunities } from "./site/oppurtunities";

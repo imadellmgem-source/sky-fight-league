@@ -295,70 +295,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* =========================================================
-          BLOCK 7: EFE BIO (MIRRORED ALIGNMENT)
-      ========================================================= */}
-      <section className="border-t border-white/10 bg-black px-4 py-24 text-white sm:px-6 sm:py-32 xl:px-12 xl:py-40">
-        <div className="mx-auto max-w-[100rem]">
-          <div className="grid gap-12 lg:grid-cols-[1.8fr_1fr] lg:gap-20 xl:gap-32">
-            {/* Bio Text (Left on desktop this time) */}
-            <div className="order-2 flex flex-col justify-center lg:order-1">
-              <div className="flex items-center gap-3">
-                <h2 className="text-xs font-bold uppercase tracking-[0.35em] text-white/50">
-                  Co-Founder
-                </h2>
-              </div>
-
-              <h3 className="display mt-6 text-6xl leading-none text-white sm:text-8xl xl:text-9xl">
-                Efe Tarik
-                <br />
-                <span className="text-white/40">Caliskan</span>
-              </h3>
-
-              <div className="mt-10 max-w-3xl space-y-6 text-lg leading-relaxed text-white/70 xl:text-xl">
-                <p>
-                  Efe Tarik Caliskan is a three-time Canadian Muay Thai Champion
-                  and former BFL 160-lb Kickboxing Champion, with a career built
-                  across rings in Canada and Thailand.
-                </p>
-                <p>
-                  A former #1-ranked WBC Muay Thai fighter at 168 lbs, Efe has
-                  competed at Rajadamnern Stadium and made a successful
-                  transition into MMA, bringing a fighter-first perspective to
-                  every decision at Sky Fight League.
-                </p>
-                <p className="border-l-2 border-primary pl-6 font-semibold text-white">
-                  As co-founder, Efe is focused on building a platform that
-                  reflects the standards and sacrifice competition demands.
-                </p>
-              </div>
-
-              {/* Event stamp */}
-              <div className="mt-12 inline-block max-w-max border border-white/10 bg-white/[0.02] p-5">
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/50">
-                  Sky Fight League
-                </p>
-                <p className="mt-1 font-mono text-sm font-semibold text-primary">
-                  SFL 001 · November 28, 2026 · Toronto
-                </p>
-              </div>
-            </div>
-
-            {/* Bio Image (Right on desktop this time) */}
-            <div className="order-1 relative aspect-[4/5] w-full max-w-xl overflow-hidden border border-white/10 lg:order-2 lg:ml-auto">
-              <span
-                aria-hidden="true"
-                className="hazard-stripes absolute inset-x-0 top-0 z-10 h-1"
-              />
-              <SlowZoomImage
-                src="/efe-about.png"
-                alt="Efe Tarik Caliskan - Co-Founder"
-              />
-              <div className="absolute inset-0 bg-black/30" />
-            </div>
-          </div>
-        </div>
-      </section>
+  
     </main>
   );
 }
