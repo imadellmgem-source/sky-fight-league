@@ -24,46 +24,47 @@ export const EVENT = {
   doors: 'Doors 5:00 PM \u2014 First Bout 6:30 PM',
   venue: 'DEMO ROOM',
   city: 'Toronto, Ontario',
-  address: "307 Lake Shore Blvd E, M5A 1C1",
-  cardReveal: 'TBD',
+  address: '307 Lake Shore Blvd E, M5A 1C1',
+  cardReveal: '15 BOUTS ANNOUNCED',
   cardRevealAt: fromZonedTime('2026-09-24 00:00:00', TIMEZONE).toISOString(),
-  ticketUrl: "https://tickets.skyfightleague.ca"
+  ticketUrl: 'https://tickets.skyfightleague.ca',
 }
 
-
+export type Discipline = 'BJJ' | 'MUAY THAI' | 'MMA' | 'JUNIOR MUAY THAI'
 
 export type Fighter = {
   name: string
-  nickname: string
-  record: string
+  nickname?: string
+  record?: string
   country: string
   corner: 'red' | 'white'
 }
 
 export type Bout = {
+  boutNumber: string
+  discipline: Discipline
   weightClass: string
   isTitle?: boolean
-  rounds: number
+  isMainEvent?: boolean
+  isCoMain?: boolean
+  rounds?: number
   red: Fighter
   white: Fighter
 }
 
-
 export const MAIN_EVENT: Bout = {
-  weightClass: 'MMA || MUAY THAI || BJJ',
+  boutNumber: '15',
+  discipline: 'BJJ',
+  weightClass: 'Main Event \u2014 BJJ',
   isTitle: true,
-  rounds: 5,
+  isMainEvent: true,
   red: {
-    name: 'Marcus Reyes',
-    nickname: 'The Hammer',
-    record: '18-2-0',
+    name: 'Simon Marcus',
     country: 'Canada',
     corner: 'red',
   },
   white: {
-    name: 'Dmitri Volkov',
-    nickname: 'Cold Steel',
-    record: '16-3-0',
+    name: 'Davis Rapagna',
     country: 'Canada',
     corner: 'white',
   },
@@ -72,28 +73,103 @@ export const MAIN_EVENT: Bout = {
 export const FIGHT_CARD: Bout[] = [
   MAIN_EVENT,
   {
-    weightClass: 'Welterweight',
-    rounds: 3,
-    red: { name: 'Andre Boucher', nickname: 'Le Loup', record: '12-1-0', country: 'Canada', corner: 'red' },
-    white: { name: 'Tyrone Walsh', nickname: 'Blackout', record: '11-4-0', country: 'Canada', corner: 'white' },
+    boutNumber: '14',
+    discipline: 'MUAY THAI',
+    weightClass: 'Co-Main Event \u2014 Muay Thai',
+    isCoMain: true,
+    red: { name: 'Efe Yikici', country: 'Canada', corner: 'red' },
+    white: { name: 'Thomas Liamakeros', country: 'Canada', corner: 'white' },
   },
   {
-    weightClass: 'Bantamweight',
-    rounds: 3,
-    red: { name: 'Kenji Sato', nickname: 'Razor', record: '9-0-0', country: 'Canada', corner: 'red' },
-    white: { name: 'Liam Doyle', nickname: 'The Anvil', record: '10-2-0', country: 'Canada', corner: 'white' },
+    boutNumber: '13',
+    discipline: 'MMA',
+    weightClass: 'Bout 13 \u2014 MMA',
+    red: { name: 'Gabe Del Giudice', country: 'Canada', corner: 'red' },
+    white: { name: 'Asein Kasymov', country: 'Canada', corner: 'white' },
   },
   {
-    weightClass: 'Featherweight',
-    rounds: 3,
-    red: { name: 'Sofia Marchetti', nickname: 'Wildfire', record: '8-1-0', country: 'Canada', corner: 'red' },
-    white: { name: 'Grace Okoye', nickname: 'Thunder', record: '7-1-0', country: 'Canada', corner: 'white' },
+    boutNumber: '12',
+    discipline: 'JUNIOR MUAY THAI',
+    weightClass: 'Bout 12 \u2014 Junior Muay Thai',
+    red: { name: 'Islam Omar', country: 'Canada', corner: 'red' },
+    white: { name: 'Alvin Zeng', country: 'Canada', corner: 'white' },
   },
   {
-    weightClass: 'Heavyweight',
-    rounds: 3,
-    red: { name: 'Viktor Petrov', nickname: 'The Mountain', record: '14-5-0', country: 'Canada', corner: 'red' },
-    white: { name: 'Samuel Cross', nickname: 'Demolition', record: '13-6-0', country: 'Canada', corner: 'white' },
+    boutNumber: '11',
+    discipline: 'BJJ',
+    weightClass: 'Bout 11 \u2014 BJJ',
+    red: { name: 'Ferdaws Nayimi', nickname: 'Bobby', country: 'Canada', corner: 'red' },
+    white: { name: 'Heliam Blanco', country: 'Canada', corner: 'white' },
+  },
+  {
+    boutNumber: '10',
+    discipline: 'MUAY THAI',
+    weightClass: 'Bout 10 \u2014 Muay Thai',
+    red: { name: 'Jay Camacho', country: 'Canada', corner: 'red' },
+    white: { name: 'Gaurav Sumai', country: 'Canada', corner: 'white' },
+  },
+  {
+    boutNumber: '09',
+    discipline: 'MUAY THAI',
+    weightClass: 'Bout 09 \u2014 Muay Thai',
+    red: { name: 'Alex Picknell', country: 'Canada', corner: 'red' },
+    white: { name: 'Wisnel Noel', country: 'Canada', corner: 'white' },
+  },
+  {
+    boutNumber: '08',
+    discipline: 'BJJ',
+    weightClass: 'Bout 08 \u2014 BJJ',
+    red: { name: 'Alex Delpeshe', country: 'Canada', corner: 'red' },
+    white: { name: 'Jody Gyivicsan', country: 'Canada', corner: 'white' },
+  },
+  {
+    boutNumber: '07',
+    discipline: 'MUAY THAI',
+    weightClass: 'Bout 07 \u2014 Muay Thai',
+    red: { name: 'Illia Pinkovskyi', country: 'Canada', corner: 'red' },
+    white: { name: 'Mathias Grandmont', country: 'Canada', corner: 'white' },
+  },
+  {
+    boutNumber: '06',
+    discipline: 'MMA',
+    weightClass: 'Bout 06 \u2014 MMA',
+    red: { name: 'Danylo Kaniovskyi', country: 'Canada', corner: 'red' },
+    white: { name: 'Pedro Henrique Pereira Da Silva', country: 'Canada', corner: 'white' },
+  },
+  {
+    boutNumber: '05',
+    discipline: 'MUAY THAI',
+    weightClass: 'Bout 05 \u2014 Muay Thai',
+    red: { name: 'Karam Halloun', country: 'Canada', corner: 'red' },
+    white: { name: 'Nathan Dhanoa', country: 'Canada', corner: 'white' },
+  },
+  {
+    boutNumber: '04',
+    discipline: 'BJJ',
+    weightClass: 'Bout 04 \u2014 BJJ',
+    red: { name: 'Cody Kent', country: 'Canada', corner: 'red' },
+    white: { name: 'Michael Gomes', country: 'Canada', corner: 'white' },
+  },
+  {
+    boutNumber: '03',
+    discipline: 'MMA',
+    weightClass: 'Bout 03 \u2014 MMA',
+    red: { name: 'Nicholas Gurski', country: 'Canada', corner: 'red' },
+    white: { name: 'Max Klutch', country: 'Canada', corner: 'white' },
+  },
+  {
+    boutNumber: '02',
+    discipline: 'MUAY THAI',
+    weightClass: 'Bout 02 \u2014 Muay Thai',
+    red: { name: 'Dimitris Efthimiadis', country: 'Canada', corner: 'red' },
+    white: { name: 'Keshav Mishra', country: 'Canada', corner: 'white' },
+  },
+  {
+    boutNumber: '01',
+    discipline: 'MMA',
+    weightClass: 'Bout 01 \u2014 MMA',
+    red: { name: 'Duncan Shaheen', country: 'Canada', corner: 'red' },
+    white: { name: 'Salvador Ngupi', country: 'Canada', corner: 'white' },
   },
 ]
 
