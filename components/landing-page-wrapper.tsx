@@ -15,6 +15,7 @@ import { Opportunities } from "./site/oppurtunities";
 import { AboutSection } from "./site/hero/about-section";
 import EventSection from "./site/event";
 import FoundersSection from "./site/founder-section";
+import SponsorsSection from "./site/sponsor-section";
 
 export function LandingPageWrapper() {
   const isLocked = false;
@@ -43,6 +44,7 @@ export function LandingPageWrapper() {
         />
         
         <FoundersSection />
+        <SponsorsSection/>
         <EventSection />
         <AboutLocation />
         <Opportunities />
