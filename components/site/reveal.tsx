@@ -6,19 +6,27 @@ import type { ReactNode } from "react";
 type RevealProps = {
   children: ReactNode;
   delay?: number;
+  duration?: number;
   x?: number;
   y?: number;
   scale?: number;
+  blur?: number;
+  once?: boolean;
+  margin?: string;
   className?: string;
-  as?: "div" | "section" | "li" | "article";
+  as?: "div" | "section" | "li" | "article" | "span" | "ul";
 };
 
 export function Reveal({
   children,
   delay = 0,
+  duration = 0.7,
   x = 0,
-  y = 24,
+  y = 28,
   scale = 1,
+  blur = 0,
+  once = true,
+  margin = "-60px",
   className,
   as = "div",
 }: RevealProps) {
@@ -37,6 +45,7 @@ export function Reveal({
               x,
               y,
               scale,
+              filter: blur > 0 ? `blur(${blur}px)` : undefined,
             }
       }
       whileInView={{
@@ -44,13 +53,14 @@ export function Reveal({
         x: 0,
         y: 0,
         scale: 1,
+        filter: blur > 0 ? "blur(0px)" : undefined,
       }}
       viewport={{
-        once: true,
-        margin: "-80px",
+        once,
+        margin,
       }}
       transition={{
-        duration: 0.7,
+        duration,
         delay,
         ease: [0.22, 1, 0.36, 1],
       }}

@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { AboutLocation } from "./site/about-location";
 import { EarlyAccessDrawer } from "./site/early-access-drawer";
-import { FightCard } from "./site/fight-card";
+
 import { Hero } from "./site/hero";
 import { NewsletterCta } from "./site/newsletter-cta";
 import { SectionBreakBanner } from "./site/section-break-banner";
@@ -16,6 +16,7 @@ import { AboutSection } from "./site/hero/about-section";
 import EventSection from "./site/event";
 import FoundersSection from "./site/founder-section";
 import SponsorsSection from "./site/sponsor-section";
+import { FightCard } from "./site/fight-card-section";
 
 export function LandingPageWrapper() {
   const isLocked = false;
@@ -39,7 +40,8 @@ export function LandingPageWrapper() {
         
         {/* Make sure FightCard accepts these props if you updated it too! */}
         <AboutSection />
-        <FightCard 
+        
+        <FightCard
           onOpenEarlyAccess={() => setEarlyAccessOpen(true)} 
         />
         
