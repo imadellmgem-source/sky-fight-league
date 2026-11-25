@@ -409,7 +409,6 @@ export function StorySplash() {
                     autoPlay
                     playsInline
                     muted
-                    defaultMuted
                     preload="auto"
                     onTimeUpdate={(e) => {
                       const v = e.currentTarget;
