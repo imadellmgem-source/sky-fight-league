@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Calendar, MapPin, Bell } from "lucide-react";
 
-import { EVENT, formatRevealDate, MAIN_EVENT } from "@/lib/fight-data";
+import { EVENT, MAIN_EVENT } from "@/lib/fight-data";
 
 import { HeroReveal } from "./hero-reveal";
 import { EventInfo } from "./event-info";
@@ -134,7 +134,6 @@ export function Hero({ isLocked = true, onOpenEarlyAccess }: HeroProps) {
              LOCKED STATE VIEW
           ======================================================= */
           <div className="flex w-full flex-col items-center">
-            {/* SQUARE REVEAL DATE BOX */}
             <HeroReveal y={20} delay={0.15}>
               <div className="relative mx-auto mb-6 hidden h-48 w-48 flex-col items-center sm:mb-8 sm:flex sm:size-72">
                 <div
@@ -154,7 +153,6 @@ export function Hero({ isLocked = true, onOpenEarlyAccess }: HeroProps) {
               </div>
             </HeroReveal>
 
-            {/* MAIN HEADLINE */}
             <HeroReveal y={20} delay={0.25}>
               <h1 className="display flex flex-col items-center text-center text-5xl leading-[0.85] tracking-tight sm:text-7xl md:text-8xl lg:text-9xl">
                 <span className="text-white">THE CARD</span>
@@ -164,14 +162,12 @@ export function Hero({ isLocked = true, onOpenEarlyAccess }: HeroProps) {
               </h1>
             </HeroReveal>
 
-            {/* SUBTEXT */}
             <HeroReveal y={20} delay={0.35}>
               <p className="mt-6 text-center text-xs font-bold uppercase tracking-[0.25em] text-primary sm:text-sm md:text-base">
                 Toronto&apos;s new home for MMA
               </p>
             </HeroReveal>
 
-            {/* EVENT INFO */}
             <HeroReveal y={20} delay={0.45}>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground sm:mt-10 sm:text-sm">
                 <span className="flex items-center gap-2">
@@ -185,7 +181,6 @@ export function Hero({ isLocked = true, onOpenEarlyAccess }: HeroProps) {
               </div>
             </HeroReveal>
 
-            {/* CTA BUTTON */}
             <HeroReveal y={20} delay={0.55}>
               <div className="mt-10 sm:mt-12">
                 <Button
@@ -202,7 +197,7 @@ export function Hero({ isLocked = true, onOpenEarlyAccess }: HeroProps) {
           </div>
         ) : (
           /* =======================================================
-             UNLOCKED STATE VIEW (FIGHTERS)
+             UNLOCKED STATE VIEW (SHRINK-WRAPPED TRANSPARENCY FEATHER)
           ======================================================= */
           <>
             <div className="relative min-h-[340px] flex-1 sm:min-h-[480px] md:min-h-[560px]">
@@ -211,19 +206,36 @@ export function Hero({ isLocked = true, onOpenEarlyAccess }: HeroProps) {
                 scale={0.97}
                 delay={0.2}
                 duration={1}
-                className="absolute inset-0"
+                className="absolute inset-0 flex items-end justify-center"
               >
-                {/* Mobile: 125% wide (smaller than before), centered.
-                    Desktop: full width. No mask, no opacity. */}
-                <div className="absolute bottom-0 left-1/2 h-full w-[125%] -translate-x-1/2 sm:w-full">
-                  <Image
-                    src="/unlocked-figthers.png"
-                    alt="Main card fighters"
-                    fill
-                    priority
-                    sizes="(max-width: 640px) 125vw, 1152px"
-                    className="object-contain object-bottom"
-                  />
+                {/* Outer Mask: Vertical Feather (Very top edge 0->7% + Bottom 88->100%) */}
+                <div
+                  className="flex h-full w-[125%] max-w-none items-end justify-center sm:w-auto sm:max-w-full"
+                  style={{
+                    WebkitMaskImage:
+                      "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.65) 3.5%, black 7.5%, black 88%, transparent 100%)",
+                    maskImage:
+                      "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.65) 3.5%, black 7.5%, black 88%, transparent 100%)",
+                  }}
+                >
+                  {/* Inner Mask: Side Feathering (Hugs the actual image left & right edges!) */}
+                  <div
+                    className="flex h-full w-auto max-w-full items-end justify-center"
+                    style={{
+                      WebkitMaskImage:
+                        "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 6%, black 15%, black 85%, rgba(0,0,0,0.5) 94%, transparent 100%)",
+                      maskImage:
+                        "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 6%, black 15%, black 85%, rgba(0,0,0,0.5) 94%, transparent 100%)",
+                    }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/new-hero-02.webp"
+                      alt="Main card fighters"
+                      fetchPriority="high"
+                      className="block max-h-full w-full object-contain object-bottom sm:h-full sm:w-auto sm:max-w-full"
+                    />
+                  </div>
                 </div>
               </HeroReveal>
             </div>
