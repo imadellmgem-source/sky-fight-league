@@ -6,6 +6,9 @@ import { Volume2, VolumeX, X } from "lucide-react";
 
 // ============================================================================
 // UNIFIED 9:16 MEDIA ASSETS IN /public
+// Make sure exact lowercase filenames match in git:
+// - public/mobile-splash.mp4
+// - public/fight-card-poster.png
 // ============================================================================
 const LOGO_SRC = "/footer-logo.png";
 
@@ -53,16 +56,17 @@ export function StorySplash() {
 
   const activeSlide = STORY_SLIDES[currentIndex];
 
-  // Lock background scroll on mount; only unlock AFTER exit animation finishes
+  // Lock background scroll on mount; unlock when closed
   useEffect(() => {
-    document.body.style.overflow = "hidden";
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    }
     return () => {
       document.body.style.overflow = "";
     };
-  }, []);
+  }, [isOpen]);
 
   const handleClose = useCallback(() => {
-    // Pause video immediately so audio doesn't linger during exit fade
     if (videoRef.current) {
       videoRef.current.pause();
     }
@@ -109,20 +113,26 @@ export function StorySplash() {
     return () => clearInterval(timer);
   }, [isOpen, activeSlide, isPaused, goNext]);
 
-  // Sync Video Play/Pause & Mute
+  // Sync Video Play/Pause & Mute (Prod React muted attribute fix)
   useEffect(() => {
     const vid = videoRef.current;
     if (!vid || activeSlide.type !== "video") return;
 
+    vid.defaultMuted = true;
     vid.muted = isMuted;
+
     if (isPaused) {
       vid.pause();
     } else {
-      vid.play().catch(() => {
-        vid.muted = true;
-        setIsMuted(true);
-        vid.play().catch(() => {});
-      });
+      const playPromise = vid.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          vid.defaultMuted = true;
+          vid.muted = true;
+          setIsMuted(true);
+          vid.play().catch(() => {});
+        });
+      }
     }
   }, [activeSlide, isMuted, isPaused]);
 
@@ -154,7 +164,6 @@ export function StorySplash() {
   return (
     <AnimatePresence
       onExitComplete={() => {
-        // Unlock scroll only after the full cinematic exit completes (prevents scrollbar snap glitch!)
         document.body.style.overflow = "";
       }}
     >
@@ -203,7 +212,7 @@ export function StorySplash() {
             className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-1/2 border-t border-primary/40 bg-[#050505]"
           />
 
-          {/* Center Red Laser Flash Line that fires as the shutters split open */}
+          {/* Center Red Laser Flash Line on Exit */}
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
             animate={{ opacity: 0, scaleX: 0 }}
@@ -219,7 +228,7 @@ export function StorySplash() {
           />
 
           {/* =========================================================
-              DESKTOP SIDE ATMOSPHERE (Subtle black bg + grid + faint glow)
+              DESKTOP SIDE ATMOSPHERE
           ========================================================= */}
           <motion.div
             onClick={handleClose}
@@ -232,7 +241,6 @@ export function StorySplash() {
             }}
             className="pointer-events-auto absolute inset-0 z-0 hidden overflow-hidden sm:block"
           >
-            {/* Subtle architectural grid */}
             <div
               className="absolute inset-0 opacity-[0.035]"
               style={{
@@ -244,7 +252,6 @@ export function StorySplash() {
               }}
             />
 
-            {/* Soft breathing crimson aura behind the 9:16 frame */}
             <motion.div
               className="absolute left-1/2 top-1/2 h-[540px] w-[540px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/15 blur-[140px]"
               animate={{
@@ -258,7 +265,6 @@ export function StorySplash() {
               }}
             />
 
-            {/* Subtle ghosted SFL logos on left & right wings */}
             <img
               src={LOGO_SRC}
               alt=""
@@ -270,12 +276,11 @@ export function StorySplash() {
               className="pointer-events-none absolute right-[8%] top-1/2 hidden w-48 -translate-y-1/2 select-none object-contain opacity-[0.03] xl:block"
             />
 
-            {/* Radial vignette */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_25%,#030303_85%)]" />
           </motion.div>
 
           {/* =========================================================
-              9:16 IG STORY CONTAINER (Zooms + Blurs Out Smoothly on Exit)
+              9:16 IG STORY CONTAINER
           ========================================================= */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96, y: 16 }}
@@ -308,7 +313,7 @@ export function StorySplash() {
             />
 
             {/* -------------------------------------------------------
-                TOP IG STORY HEADER (Progress Bars + SFL Profile + Controls)
+                TOP IG STORY HEADER
             ------------------------------------------------------- */}
             <div className="pointer-events-none absolute inset-x-0 top-1 z-20 px-3 pt-2.5 sm:px-4 sm:pt-3">
               {/* Segmented Progress Bars */}
@@ -403,7 +408,8 @@ export function StorySplash() {
                     src={activeSlide.src}
                     autoPlay
                     playsInline
-                    muted={isMuted}
+                    muted
+                    defaultMuted
                     preload="auto"
                     onTimeUpdate={(e) => {
                       const v = e.currentTarget;
@@ -412,7 +418,13 @@ export function StorySplash() {
                       }
                     }}
                     onEnded={goNext}
-                    onError={goNext}
+                    onError={() => {
+                      console.warn(
+                        "[StorySplash] Video failed to load in prod:",
+                        activeSlide.src
+                      );
+                      goNext();
+                    }}
                     initial={{ opacity: 0, scale: 1.04 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.96, filter: "blur(8px)" }}
@@ -431,7 +443,12 @@ export function StorySplash() {
                     <img
                       src={activeSlide.src}
                       alt="SFL 001 Official Fight Card"
-                      onError={handleClose}
+                      onError={() => {
+                        console.warn(
+                          "[StorySplash] Fight card poster failed to load in prod:",
+                          activeSlide.src
+                        );
+                      }}
                       className="h-full w-full object-contain"
                     />
                   </motion.div>
