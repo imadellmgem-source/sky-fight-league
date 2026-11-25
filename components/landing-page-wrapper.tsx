@@ -17,6 +17,7 @@ import EventSection from "./site/event";
 import FoundersSection from "./site/founder-section";
 import SponsorsSection from "./site/sponsor-section";
 import { FightCard } from "./site/fight-card-section";
+import { StorySplash } from "./site/story-splash";
 
 export function LandingPageWrapper() {
   const isLocked = false;
@@ -24,33 +25,35 @@ export function LandingPageWrapper() {
 
   return (
     <>
+      {/* IG Story Splash Overlay (Plays mobile-splash.mp4 -> fight-card-poster.png on load) */}
+      <StorySplash />
+
       <SiteHeader
         isLocked={isLocked}
         onOpenEarlyAccess={() => setEarlyAccessOpen(true)}
       />
-      
+
       <main>
         {/* Pass down isLocked and the drawer trigger to Hero */}
-        <Hero 
+        <Hero
           isLocked={isLocked}
           onOpenEarlyAccess={() => setEarlyAccessOpen(true)}
         />
-        
+
         <SectionBreakBanner />
-        
-        {/* Make sure FightCard accepts these props if you updated it too! */}
+
         <AboutSection />
-        
+
         <FightCard
-          onOpenEarlyAccess={() => setEarlyAccessOpen(true)} 
+          onOpenEarlyAccess={() => setEarlyAccessOpen(true)}
         />
-        
+
         <FoundersSection />
-        <SponsorsSection/>
+        <SponsorsSection />
         <EventSection />
         <AboutLocation />
         <Opportunities />
-        
+
         <NewsletterCta isLocked={isLocked} />
       </main>
 
