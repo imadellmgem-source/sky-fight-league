@@ -29,7 +29,7 @@ export function Hero({ isLocked = true, onOpenEarlyAccess }: HeroProps) {
   return (
     <section
       id="top"
-      className="relative min-h-screen overflow-hidden bg-accent pt-16"
+      className="relative min-h-[100dvh] overflow-hidden bg-accent pt-16"
     >
       {/* =========================================================
           ATMOSPHERIC BACKGROUND (switches on isLocked)
@@ -88,7 +88,7 @@ export function Hero({ isLocked = true, onOpenEarlyAccess }: HeroProps) {
       ) : (
         <motion.span
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-[42%] z-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[26vw] opacity-[0.06] display text-stroke"
+          className="pointer-events-none absolute left-1/2 top-[34%] z-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[26vw] opacity-[0.06] display text-stroke sm:top-[42%]"
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 0.06, scale: 1 }}
           transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
@@ -101,26 +101,30 @@ export function Hero({ isLocked = true, onOpenEarlyAccess }: HeroProps) {
           MAIN HERO CONTAINER
       ========================================================= */}
       <div
-        className={`relative z-10 mx-auto flex min-h-[calc(100vh-4rem)] max-w-6xl flex-col px-4 sm:px-6 ${isLocked ? "items-center justify-center py-12" : ""}`}
+        className={`relative z-10 mx-auto flex min-h-[calc(100dvh-4rem)] max-w-6xl flex-col px-4 sm:px-6 ${
+          isLocked ? "items-center justify-center py-12" : ""
+        }`}
       >
-        {/* EVENT EYEBROW (Shared across both states) */}
+        {/* EVENT EYEBROW (Keeps 1 clean line on mobile) */}
         <HeroReveal y={-16} delay={0}>
           <div
-            className={`flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-center ${isLocked ? "mb-6 sm:mb-10" : "pt-8"}`}
+            className={`flex items-center justify-center gap-x-2.5 text-center sm:gap-x-4 ${
+              isLocked ? "mb-6 sm:mb-10" : "pt-4 sm:pt-8"
+            }`}
           >
             <motion.span
-              className="hazard-stripes h-2 w-12 sm:w-16"
+              className="hazard-stripes h-1.5 w-6 shrink-0 sm:h-2 sm:w-16"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.6, delay: 0.15 }}
               style={{ transformOrigin: "left" }}
             />
-            <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-muted-foreground sm:text-xs">
+            <p className="whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.22em] text-muted-foreground sm:text-xs sm:tracking-[0.35em]">
               {EVENT.number} <span className="text-primary">/</span>{" "}
               {isLocked ? "November 28th, 2026" : EVENT.title}
             </p>
             <motion.span
-              className="hazard-stripes h-2 w-12 sm:w-16"
+              className="hazard-stripes h-1.5 w-6 shrink-0 sm:h-2 sm:w-16"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.6, delay: 0.15 }}
@@ -197,20 +201,22 @@ export function Hero({ isLocked = true, onOpenEarlyAccess }: HeroProps) {
           </div>
         ) : (
           /* =======================================================
-             UNLOCKED STATE VIEW (SHRINK-WRAPPED TRANSPARENCY FEATHER)
+             UNLOCKED STATE VIEW
+             - Mobile: Fighters positioned higher + Monochrome SFL seal below
+             - Desktop (sm+): Exact shrink-wrapped bottom alignment
           ======================================================= */
           <>
-            <div className="relative min-h-[340px] flex-1 sm:min-h-[480px] md:min-h-[560px]">
+            <div className="relative flex flex-1 flex-col items-center justify-center py-2 sm:min-h-[480px] sm:py-0 md:min-h-[560px]">
               <HeroReveal
                 y={30}
                 scale={0.97}
                 delay={0.2}
                 duration={1}
-                className="absolute inset-0 flex items-end justify-center"
+                className="flex w-full flex-col items-center justify-center gap-4 sm:absolute sm:inset-0 sm:flex-row sm:items-end"
               >
-                {/* Outer Mask: Vertical Feather (Very top edge 0->7% + Bottom 88->100%) */}
+                {/* Outer Mask: Vertical Feather */}
                 <div
-                  className="flex h-full w-[125%] max-w-none items-end justify-center sm:w-auto sm:max-w-full"
+                  className="flex max-h-[47dvh] w-[125%] max-w-none items-end justify-center sm:h-full sm:max-h-none sm:w-auto sm:max-w-full"
                   style={{
                     WebkitMaskImage:
                       "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.65) 3.5%, black 7.5%, black 88%, transparent 100%)",
@@ -218,7 +224,7 @@ export function Hero({ isLocked = true, onOpenEarlyAccess }: HeroProps) {
                       "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.65) 3.5%, black 7.5%, black 88%, transparent 100%)",
                   }}
                 >
-                  {/* Inner Mask: Side Feathering (Hugs the actual image left & right edges!) */}
+                  {/* Inner Mask: Side Feathering */}
                   <div
                     className="flex h-full w-auto max-w-full items-end justify-center"
                     style={{
@@ -233,9 +239,27 @@ export function Hero({ isLocked = true, onOpenEarlyAccess }: HeroProps) {
                       src="/new-hero-02.webp"
                       alt="Main card fighters"
                       fetchPriority="high"
-                      className="block max-h-full w-full object-contain object-bottom sm:h-full sm:w-auto sm:max-w-full"
+                      className="block max-h-[47dvh] w-full object-contain object-bottom sm:h-full sm:max-h-full sm:w-auto sm:max-w-full"
                     />
                   </div>
+                </div>
+
+                {/* Mobile-Only Monochrome SFL Seal Under Fighters */}
+                <div className="relative flex w-full max-w-[270px] items-center justify-center gap-3.5 pt-1 sm:hidden">
+                  <span className="h-px flex-1 bg-gradient-to-r from-transparent to-white/25" />
+                  <div className="relative flex items-center justify-center">
+                    <span
+                      aria-hidden="true"
+                      className="absolute h-10 w-16 rounded-full bg-primary/20 blur-xl"
+                    />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/footer-logo.png"
+                      alt="Sky Fight League"
+                      className="relative z-10 h-14 w-auto object-contain opacity-60 grayscale contrast-125"
+                    />
+                  </div>
+                  <span className="h-px flex-1 bg-gradient-to-l from-transparent to-white/25" />
                 </div>
               </HeroReveal>
             </div>
