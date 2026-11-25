@@ -75,16 +75,9 @@ export function Opportunities() {
               <span className="text-gray-500 uppercase">Partners & Press</span>
             </div>
 
-            <h2 className="text-6xl sm:text-7xl md:text-8xl lg:text-[7rem] font-black uppercase tracking-tighter leading-[0.85] text-left lg:text-right">
+            <h2 className="display text-6xl sm:text-7xl md:text-8xl lg:text-[7.5rem] uppercase tracking-tight leading-[0.85] text-left lg:text-right">
               <span className="text-black block">Get Closer</span>
-              <span
-                className="block mt-1"
-                style={{
-                  color: "#f3f2ef",
-                  textShadow:
-                    "-1.5px -1.5px 0 #111, 1.5px -1.5px 0 #111, -1.5px 1.5px 0 #111, 1.5px 1.5px 0 #111",
-                }}
-              >
+              <span className="block mt-1 text-transparent [-webkit-text-stroke:1.5px_black] sm:[-webkit-text-stroke:2px_black]">
                 To The Action.
               </span>
             </h2>
