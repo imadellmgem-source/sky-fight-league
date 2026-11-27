@@ -19,6 +19,7 @@ import SponsorsSection from "./site/sponsor-section";
 import { FightCard } from "./site/fight-card-section";
 import { StorySplash } from "./site/story-splash";
 
+
 export function LandingPageWrapper() {
   const isLocked = false;
   const [earlyAccessOpen, setEarlyAccessOpen] = useState(false);
@@ -27,6 +28,7 @@ export function LandingPageWrapper() {
     <>
       {/* IG Story Splash Overlay (Plays mobile-splash.mp4 -> fight-card-poster.png on load) */}
       <StorySplash />
+
 
       <SiteHeader
         isLocked={isLocked}

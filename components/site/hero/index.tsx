@@ -8,7 +8,11 @@ import { EVENT, MAIN_EVENT } from "@/lib/fight-data";
 
 import { HeroReveal } from "./hero-reveal";
 import { EventInfo } from "./event-info";
+import { WatchBanner } from "./watch-banner"; // NEW
 import { Button } from "@/components/ui/button";
+
+// NEW: flip to false to hide the live banner
+const SHOW_WATCH_BANNER = true;
 
 interface HeroProps {
   isLocked?: boolean;
@@ -31,6 +35,9 @@ export function Hero({ isLocked = true, onOpenEarlyAccess }: HeroProps) {
       id="top"
       className="relative min-h-[100dvh] overflow-hidden bg-accent pt-16"
     >
+      {/* NEW: LIVE BANNER (sits right under the fixed header) */}
+      {SHOW_WATCH_BANNER && <WatchBanner />}
+
       {/* =========================================================
           ATMOSPHERIC BACKGROUND (switches on isLocked)
       ========================================================= */}
